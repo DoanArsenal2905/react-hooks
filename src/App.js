@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import ColorBox from './components/ColorBox';
+import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
 function App() {
@@ -17,12 +18,24 @@ function App() {
     const newTodoList = [...todoList];
     newTodoList.splice(index, 1);
     setTodoList(newTodoList);
-  }
+  };
+
+  const handleTodoFormSubmit = formValues => {
+    console.log('Form Submit', formValues);
+    const newTodo = {
+      id: todoList.length + 1, //dung tam thoi, se co truong hop gap loi
+      ...formValues
+    };
+    const newTodoList = [...todoList];
+    newTodoList.push(newTodo)
+    setTodoList(newTodoList)
+  };
 
   return (
     <div className="app">
       <h1>Doan Arsenal</h1>
       <ColorBox />
+      <TodoForm onSubmit={handleTodoFormSubmit} />
       <TodoList todos={todoList} onTodoClick={handleTodoClick} />
     </div>
   );
